@@ -10,9 +10,10 @@ import (
 
 func TestDialContextCancel(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
-	sync := make(chan struct{})
+	sync := make(chan struct{}) // make a channel to synchronize goroutines
 
 	go func() {
+		// send message to sync channel when this goroutine exits
 		defer func() { sync <- struct{}{} }()
 
 		var d net.Dialer
