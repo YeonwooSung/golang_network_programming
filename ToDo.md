@@ -14,4 +14,4 @@
 
 ### UDP
 
-- GSO (Generic Segmentation Offload)
+- GSO (Generic Segmentation Offload) :: [Segmentation Offloads?](https://www.kernel.org/doc/html/latest/networking/segmentation-offloads.html)
