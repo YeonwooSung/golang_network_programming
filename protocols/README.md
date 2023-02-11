@@ -42,6 +42,43 @@ UDP is more like a protester outside with a megaphone.
 Everyone who is paying attention to the protester should hear most of what they're saying.
 But there's no guarantee that everyone in the area will hear what the protester is saying, or that they're even listening.
 
+### Nagle's Algorithm
+
+Nagle's algorithm is a means of improving the efficiency of TCP/IP networks by reducing the number of packets that need to be sent over the network.
+
+Typically, when a TCP/IP application sends data, it sends it in small chunks.
+This is because the application is usually waiting for a response from the server before sending more data.
+This is called "flow control".
+However, this means that the application is sending a lot of small packets over the network.
+This is inefficient, because the network is optimized for sending large packets.
+Nagle's algorithm is a means of reducing the number of packets that need to be sent over the network.
+
+Nagle's algorithm works by delaying the sending of small packets until there is enough data to send a full-sized packet.
+This means that the network is only sending full-sized packets, which are more efficient.
+However, this means that the application has to wait for the network to send the packet before it can send more data.
+This can cause a delay in the application.
+
+Nagle’s algorithm coalesces small packets and delays their delivery until an ACK is returned from the previously sent packet or an adequate amount of small packets is accumulated after a certain period.
+This process usually takes milliseconds but, having a latency-sensitive service or tight latency Service Level Objectives (SLOs), shaving off a couple of milliseconds might be worthwhile.
+
+A cross-platform TCP socket option that comes helpful here is `TCP_NODELAY`.
+When enabled, it practically disables Nagle’s algorithm.
+Instead of coalescing small packets, it sends them to the pipe as soon as possible.
+In general, Nagle’s algorithm’s goal is to reduce the number of packets sent to save bandwidth and increase throughput with the trade-off sometimes to introduce increased latency to services.
+On the other hand, `TCP_NODELAY` might decrease throughput for small writes, but there are ways to mitigate this by using buffers on the application side.
+
+In Go, TCP_NODELAY is enabled by default, but the standard library offers the ability to disable the behavior via the net.SetNoDelay method.
+
+To test the Nagle's algorithm, use [this example](./tcp_with_nagle_algorithm/):
+
+```bash
+# Run the server
+$ go run server.go
+
+# Run the client
+$ go run client.go
+```
+
 ## References
 
 [1] [Internet Protocol Suite](https://www.sciencedirect.com/topics/computer-science/internet-protocol-suite)
