@@ -79,6 +79,9 @@ $ go run server.go
 $ go run client.go
 ```
 
+Also, you can find "John Nagle"'s comment about Nagle's algorithm in stackoverflow.
+If you are actually interested in, please refer [here](https://stackoverflow.com/a/16663206/9012940).
+
 ## References
 
 [1] [Internet Protocol Suite](https://www.sciencedirect.com/topics/computer-science/internet-protocol-suite)
